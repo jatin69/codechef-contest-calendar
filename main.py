@@ -194,6 +194,6 @@ sampleEvents = [
 # date format is `YYYY-MM-DDTHH:MM:SS+05:30`
 
 if __name__ == '__main__':
-    # events = fetchContests() 
-    events = sampleEvents
+    events = fetchContests() 
+    # events = sampleEvents
     makeEventsonGoogleCalendar(events)
