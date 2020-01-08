@@ -24,7 +24,7 @@ def tobase32hex(contestCode):
     return res
 
 def getUniqueIdForContest(contestCode, startDate, endDate):
-    return 'jatin69codechefcalendarcontestidis' + tobase32hex(contestCode) + tobase32hex(startDate[:19]) + tobase32hex(endDate[:19])
+    return 'thecodechefcalendarcontestidis_' + tobase32hex(contestCode)
 
 x = getUniqueIdForContest('OCT18','2018-10-20T11:00:00+05:30','2018-10-20T11:00:00+05:30' )
-print(len(x))
+print(x)

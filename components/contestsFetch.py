@@ -20,7 +20,9 @@ def fetchContests():
     activeContests = allContestsEver[0]
     upcomingContests = allContestsEver[1]
     # pastContests = allContestsEver[2]
-    ignoredContests = ['INOIPRAC', 'ZCOPRAC']
+
+    # ignoring contest that last more than a year
+    ignoredContests = ['INOIPRAC', 'ZCOPRAC', 'IARCSJUD']
 
     # Make a list of active and upcoming contests
     requiredContests = []
@@ -30,15 +32,21 @@ def fetchContests():
     events = []
     for contest in requiredContests:
         tds = contest.find_all("td")
-        events.append({
+        currentContest = {
             'contestCode': tds[0].text,
             'contestLink': 'https://www.codechef.com{0}'.format(tds[1].next.attrs['href'].split('?')[0]),
             'contestTitle': tds[1].text,
             'contestStartDate': tds[2].attrs['data-starttime'],
             'contestEndDate': tds[3].attrs['data-endtime']
-        })
-        if tds[0].text in ignoredContests:
-            events.pop()
+        }
+
+        if currentContest['contestCode'] in ignoredContests:
+            continue
+
+        if int(currentContest['contestEndDate'][:4]) - int(currentContest['contestStartDate'][:4]) > 0:
+            continue
+        
+        events.append(currentContest)
 
     return events
 
