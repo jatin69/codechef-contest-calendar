@@ -1,11 +1,16 @@
+# modules
 __pycache__/
+
+# vscode cache
 .vscode
 
-# obtained manually
-credentials.json
-
-# created automatically
+# obtained manually in quickstart app step 1
+credentials_user.json
+# created automatically after this manual authentication
 token.json
+
+# obtained manually by creating a service account
+credentials_service_account.json
 
 # similar to sample_config.py
 config.py   

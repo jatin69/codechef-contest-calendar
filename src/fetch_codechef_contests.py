@@ -2,7 +2,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-# codechef Contests URL : Replace with config when integrating
+import pprint
+
 codechefContestURL = 'https://www.codechef.com/contests'
 
 def fetchContests():
@@ -19,9 +20,11 @@ def fetchContests():
     allContestsEver = soup.find_all("table", {"class": "dataTable"})
     activeContests = allContestsEver[0]
     upcomingContests = allContestsEver[1]
+    # past contests need not be added to calendar
     # pastContests = allContestsEver[2]
 
     # ignoring contest that last more than a year
+    # new ones will be handled by year subtraction logic below 
     ignoredContests = ['INOIPRAC', 'ZCOPRAC', 'IARCSJUD']
 
     # Make a list of active and upcoming contests
@@ -51,4 +54,9 @@ def fetchContests():
     return events
 
 
-print(fetchContests())
+# Stand-alone script part
+if __name__ == '__main__':
+    codechef_contests = fetchContests()
+    pprint.pprint(codechef_contests)
+
+
