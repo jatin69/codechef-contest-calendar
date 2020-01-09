@@ -12,8 +12,7 @@ token.json
 # obtained manually by creating a service account
 credentials_service_account.json
 
-# similar to sample_config.py
-config.py   
+# calendar secrets
+calendar_secrets.json
 
-
-
+backup/

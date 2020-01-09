@@ -21,7 +21,7 @@ def authenticateUser():
     store = file.Storage('token.json')
     credentials = store.get()
     if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets('credentials_user.json', SCOPES)
+        flow = client.flow_from_clientsecrets('./../secrets/credentials_user.json', SCOPES)
         credentials = tools.run_flow(flow, store)
     return credentials
 

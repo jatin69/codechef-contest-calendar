@@ -21,7 +21,7 @@ import fetch_codechef_contests
 import get_unique_contest_id
 
 
-def makeEventsonGoogleCalendar(events):
+def makeEventsonGoogleCalendar(events, google_calendar_id):
     """
     Objective       : Add events to the google calendar
     Pre-requisite   : Require oauth2 with Google Calendar
@@ -65,7 +65,7 @@ def makeEventsonGoogleCalendar(events):
         currentEvent = ""
         try:
             # try to create a new event
-            currentEvent = service.events().insert(calendarId=config.codechefCalendarId,
+            currentEvent = service.events().insert(calendarId=google_calendar_id,
                                                    body=currentEventBody).execute()
             print("Added - {0}".format(currentEvent['summary']))
 
@@ -77,7 +77,7 @@ def makeEventsonGoogleCalendar(events):
                 # print(err.resp.status)
 
                 # already added or modified ?
-                currentEvent = service.events().get(calendarId=config.codechefCalendarId,
+                currentEvent = service.events().get(calendarId=google_calendar_id,
                                                     eventId=uniqueContestId).execute()
                 # print(currentEvent)
 
@@ -92,7 +92,7 @@ def makeEventsonGoogleCalendar(events):
                     currentEvent['start']['dateTime'] = currentEventBody['start']['dateTime']
                     currentEvent['end']['dateTime'] = currentEventBody['end']['dateTime']
                     currentEvent['status'] = 'confirmed'
-                    updated_event = service.events().update(calendarId=config.codechefCalendarId,
+                    updated_event = service.events().update(calendarId=google_calendar_id,
                                                             eventId=uniqueContestId, body=currentEvent).execute()
                     # print(updated_event)
                     print("Updated - {0}".format(updated_event['summary']))
@@ -110,4 +110,5 @@ if __name__ == '__main__':
     if config.event_mode == "codechef":
         events = fetch_codechef_contests.fetchContests()
 
-    makeEventsonGoogleCalendar(events)
+    my_google_calendar_id = config.getMyCodechefCalendarID()
+    makeEventsonGoogleCalendar(events, my_google_calendar_id)
