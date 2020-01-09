@@ -96,7 +96,7 @@ We need to setup a cron job. For this we'll need a service account from google t
   - rename `sample_calendar_secrets.json` to `calendar_secrets.json`
   - fill calendar id (can be found in your calendar settings. go to [all calendars](https://calendar.google.com/calendar/b/1/r) and use three dots beside calendar name to go in settings)
 - Step 5 - giving calendar permission to service account
-  - Go to your calendar settings, and share it with service account by entering the service account email id
+  - Go to your calendar settings, go to `share it with specific people` and share it with service account by entering the service account email id
   - You can find the service account email [here](https://console.cloud.google.com/iam-admin/serviceaccounts). Use the same service account we created in basic app setup above
   - in google calendar, add id of service account
 - Step 6 - change config
