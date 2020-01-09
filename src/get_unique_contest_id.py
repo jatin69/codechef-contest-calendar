@@ -1,22 +1,24 @@
-import string 
+import string
 alphanum = (string.digits+string.ascii_lowercase)[:32]
-charMap = {'w' : 'ab', 'x' : 'cd', 'y' : 'ef', 'z' : 'gh'}
+charMap = {'w': 'ab', 'x': 'cd', 'y': 'ef', 'z': 'gh'}
+
 
 def tobase32hex(contestCode):
     res = ''
     for s in contestCode.lower():
         if s in alphanum:
             res += s
-        elif s in charMap.keys() :
+        elif s in charMap.keys():
             res += charMap[s]
         else:
             pass
     return res
 
+
 def getUniqueIdForContest(contestCode):
     """
     Unique Event id - https://developers.google.com/calendar/v3/reference/events/insert
-    
+
     Opaque identifier of the event. 
     When creating new single or recurring events, you can specify their IDs. 
 
@@ -36,7 +38,7 @@ def getUniqueIdForContest(contestCode):
 
 # Stand-alone script part
 if __name__ == '__main__':
-    contests = ['jan10','FEB11', 'z1', 'x2']
+    contests = ['jan10', 'FEB11', 'z1', 'x2']
     for contest_id in contests:
         unique_contest_id = getUniqueIdForContest(contest_id)
         print(unique_contest_id)

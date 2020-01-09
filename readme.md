@@ -78,6 +78,7 @@ We need to setup a cron job. For this we need a service account from google to i
   - You might be prompted to create credentials on [this screen](https://console.developers.google.com/apis/api/calendar-json.googleapis.com/overview)
   - Go to [API and Services section](https://console.developers.google.com/apis/credentials)
 
+- in google calendar, add id of service account
 
 # credentials.json : This file is manually downloaded after creating API credentials
 # token.json       : automatically created short lived access token after oauth2 

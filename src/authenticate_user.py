@@ -4,6 +4,7 @@ from httplib2 import Http
 from oauth2client import client, file, tools
 from googleapiclient.errors import HttpError
 
+
 def authenticateUser():
     """
     Purpose - obtain credentials by authenticating via browser

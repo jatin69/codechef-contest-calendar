@@ -9,6 +9,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 import pprint
 import sys
 
+
 def authenticateServiceAccount():
     """
     Purpose - obtain credentials by authenticating via service account (programmatically)    
@@ -20,7 +21,8 @@ def authenticateServiceAccount():
 
     # If modifying these scopes, delete the file token.json.
     SCOPES = 'https://www.googleapis.com/auth/calendar'
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials_service_account.json', scopes=SCOPES)
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+        'credentials_service_account.json', scopes=SCOPES)
     return credentials
 
 
