@@ -1,0 +1,40 @@
+name: Cron Job Workflow
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'
+
+jobs:
+  cron-job:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: checkout-repo
+      uses: actions/checkout@v1
+    
+    - name: Decrypt secrets
+      run: |
+        cd secrets
+        chmod +x ./decrypt_secrets.sh
+        ./decrypt_secrets.sh
+      env:
+        LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
+
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    
+    - name: Install dependencies
+      run: |
+        pip install pipenv
+        pipenv shell
+        pipenv install
+    
+    - name: Run python script
+      run: |
+        cd src
+        pipenv shell
+        python main.py
