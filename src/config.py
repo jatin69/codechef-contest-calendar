@@ -25,5 +25,5 @@ def getMyCodechefCalendarID():
 script_mode = "service_account"
 
 # choose events
-# event_mode = "codechef"
-event_mode = "dummy_event"
+event_mode = "codechef"
+# event_mode = "dummy_event"

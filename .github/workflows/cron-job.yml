@@ -29,12 +29,9 @@ jobs:
     
     - name: Install dependencies
       run: |
-        pip install pipenv
-        pipenv shell
-        pipenv install
+        pip install -r requirements.txt
     
     - name: Run python script
       run: |
         cd src
-        pipenv shell
         python main.py

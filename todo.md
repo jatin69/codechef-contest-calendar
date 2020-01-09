@@ -1,5 +1,9 @@
 # TODO
 
+pipenv run pip freeze > requirements.txt
+
+to make requirements.txt
+
 - [X] detect contest extension time. now more difficult because id exists, so duplicate. 
   - Extension detection logic
     - if duplicate identifier, fetch its details. 
