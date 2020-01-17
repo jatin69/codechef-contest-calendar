@@ -37,8 +37,8 @@ def fetchContests():
         tds = contest.find_all("td")
         currentContest = {
             'contestCode': tds[0].text,
-            'contestLink': 'https://www.codechef.com{0}'.format(tds[1].next.attrs['href'].split('?')[0]),
-            'contestTitle': tds[1].text,
+            'contestLink': 'https://www.codechef.com{0}'.format(tds[1].next.next.attrs['href'].split('?')[0]),
+            'contestTitle': tds[1].text.split('\n')[1],
             'contestStartDate': tds[2].attrs['data-starttime'],
             'contestEndDate': tds[3].attrs['data-endtime']
         }
