@@ -35,3 +35,14 @@ jobs:
       run: |
         cd src
         python main.py
+
+    - name: Notify slack about failure
+      uses: voxmedia/github-action-slack-notify-build@master
+      if: failure()
+      with:
+        channel: codechef-contest-calendar
+        status: FAILED
+        color: danger
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      

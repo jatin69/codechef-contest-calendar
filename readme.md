@@ -1,4 +1,4 @@
-# Codechef Contest Calendar
+# Codechef Contest Calendar ![Cron job status](https://github.com/jatin69/codechef-contest-calendar/workflows/Cron%20Job%20Workflow/badge.svg)
 
 A Custom Google Calendar for upcoming codechef contests. Checkout the demo [here](https://jatin69.github.io/codechef-contest-calendar/).
 
@@ -15,17 +15,15 @@ If you still can't see the events, or the calendar in your google calendar andro
 
 Calendar will now show in your main calendar. If you want to hide it at any point of time, open the side menu and simply unset the checkbox in front of the calendar.
 
-## Dev
+## Development
 
-- we first scraped events from codechef website
+- I first scraped events from codechef website
 - Then added them on a newly made google calendar
-- Then setup a cron job to periodically auto update the calendar
-- Then simply add the calendar to your google account and it'll show up in your google calendar app.
+- Then setup a cron job to periodically auto update the calendar by re-scraping codechef contests once a day
+- Then setup slack notifications if a cron build fails
+- You can simply add the calendar to your google account and it'll show up in your google calendar app.
 
-<details>
-<summary>How can i develop this project? / How can i make my own custom calendar? </summary>
-
-### Setting up environment
+### Part 1 - Setting up environment
 
 These steps will guide you in detail on how to create a custom calendar, and making a exact replica of this project.
 
@@ -35,7 +33,7 @@ These steps will guide you in detail on how to create a custom calendar, and mak
 - Run `pipenv shell` in project root, then `pipenv install`
 - This will setup all the required dependencies in a virtual env in python
 
-### Setting up the app
+### Part 2 - Setting up the app
 
 - Step 1 - Quickstart guide
   - Go to [Python quickstart guide for google calendar](https://developers.google.com/calendar/quickstart/python)
@@ -72,7 +70,7 @@ These steps will guide you in detail on how to create a custom calendar, and mak
   - If you manually run this command once a day, this will fetch new contests, and add them to calendar.
   - This is still cumbersome, because we still have to manually run the script everyday. We would like to setup this as a cron job, so it runs once a day and automatically updates our calendar.
 
-### Setting up cron job
+### Part 3 - Setting up the cron job
 
 We need to setup a cron job. For this we'll need a service account from google to interact with our API aka server to server interaction.
 
@@ -120,5 +118,28 @@ We need to setup a cron job. For this we'll need a service account from google t
   - We've configured it to run once a day at 00:00
 
 To share the calendar, simply share the public calendar link (can be found in your calendar settings)
+
+### Part 4 - Setting up slack notifications
+
+Websites usually changes their structure often. Even minor changes like adding newlines can break scrapers. And our scraper runs unmonitored once a day. We would like to setup a slack notification for when the cron run fails, so we know something has gone wrong. In most case, runs will fail when there has been changes to codechef website contest page.
+
+I'll use [this](https://github.com/voxmedia/github-action-slack-notify-build) handy github action to create slack notifications. You might want to skim through its readme.
+
+- step 1 : setting up the slack app
+  - To use this GitHub Action, you'll need a [Slack bot token](https://api.slack.com/docs/token-types). A bot token must be associated with a Slack app, so we will need to create a slack app.
+  - **Login to slack** Login to slack with a email id. Create a slack workspace if you don't already have one. Create a channel in it with name `codechef-contest-calendar`.
+  - **Create an app.** Go to [Slack's developer site](https://api.slack.com/) then click "Create an app". Name the app anything and make sure your just desoired Slack workspace is selected under "Development Slack Workspace".
+  - **Add a Bot user.** Browse to the "Bot users" page listed in the sidebar. Name your bot "codechef-calendar-bot" (you can change this later) and leave the other default settings as-is.
+  - **Set an icon for your bot.** Browse to the "Basic information" page listed in the sidebar. Scroll down to the section titled "Display information" to set an icon.
+  - **Install your app to your workspace.** At the top of the "Basic information" page, you can find a section titled "Install your app to your workspace". Click on it, then use the button to complete the installation.
+- step 2 : adding the bot token to github secrets
+  - **Obtain the bot token** Browse to "Install apps" in your app setting and you'll find the Bot User OAuth Access Token. Bot user token strings begin with `xoxb-`.
+  - Add this token to the github project secrets. Same as we did earlier with decryption key of our secrets. name the key as `SLACK_BOT_TOKEN` and value is the string starting from `xoxb-`
+- step 3 : Invite your bot to your slack channel
+  - Go to channel details for the channel we just create in step 1
+  - Scroll down, go to add people, type the name of your bot ( `codechef-calendar-bot` in our case ) and add it to channel. We've now added the bot to our channel.
+- step 4 : That's all
+  - This token will be used in the already written workflow yml file.
+  - Now you'll immediately receive notification if your cron job run fails anyday.
 
 </details>
