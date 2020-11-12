@@ -37,7 +37,7 @@ jobs:
         python main.py
 
     - name: Notify slack about failure
-      uses: voxmedia/github-action-slack-notify-build@master
+      uses: voxmedia/github-action-slack-notify-build@main
       if: failure()
       with:
         channel: codechef-contest-calendar
