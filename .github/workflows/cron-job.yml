@@ -2,7 +2,7 @@ name: Cron Job Workflow
 
 on:
   schedule:
-    - cron: '0 0 */1 * *'
+    - cron: '0 0 1,15 * *'
 
 jobs:
   cron-job:
@@ -37,7 +37,7 @@ jobs:
         python main.py
 
     - name: Notify slack about failure
-      uses: voxmedia/github-action-slack-notify-build@master
+      uses: voxmedia/github-action-slack-notify-build@main
       if: failure()
       with:
         channel: codechef-contest-calendar
